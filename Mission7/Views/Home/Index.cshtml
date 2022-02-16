@@ -4,5 +4,21 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+    @foreach (var book in ViewBag.books)
+    {
+        <div>
+            <h4>@book.Title</h4>
+            <ul class="list-group">
+                <li class="list-group-item">@book.Author</li>
+                <li class="list-group-item">@book.Publisher</li>
+                <li class="list-group-item">@book.Isbn</li>
+                <li class="list-group-item">@book.Classification</li>
+                <li class="list-group-item">@book.Category</li>
+                <li class="list-group-item">@book.PageCount</li>
+                <li class="list-group-item">@book.Price</li>
+            </ul>
+        </div>
+    }
+
+<div page-model="@ViewBag.pageInfo" page-action="Index"></div>

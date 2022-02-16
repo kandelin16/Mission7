@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mission7.Models;
+using Mission7.Models.ViewModels;
 using Mission7.Repository;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,16 @@ namespace Mission7.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNum = 1)
         {
-
+            ViewBag.books = _repo.books.OrderBy(p => p.Title).Skip((pageNum - 1) * 10).Take(10);
+            var x = new PageInfo()
+            {
+                TotalBooks = _repo.books.Count(),
+                BooksPerPage = 10,
+                PageNum = pageNum
+            };
+            ViewBag.pageInfo = x;
             return View();
         }
 
