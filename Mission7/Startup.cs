@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Mission7.Models;
+using Mission7.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,13 @@ namespace Mission7
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext <BookstoreContext>(options =>
+            {
+                options.UseSqlite(Configuration["ConnectionStrings:BookstoreDB"]);
+            });
+
+            services.AddScoped<IBookstoreRepository, BookstoreRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

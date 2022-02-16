@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Mission7.Models;
+using Mission7.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,15 +12,18 @@ namespace Mission7.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private  ILogger<HomeController> _logger;
+        private IBookstoreRepository _repo { get; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IBookstoreRepository temp)
         {
             _logger = logger;
+            _repo = temp;
         }
 
         public IActionResult Index()
         {
+
             return View();
         }
 
