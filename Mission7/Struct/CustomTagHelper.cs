@@ -17,6 +17,9 @@ namespace Mission7.Struct
         private IUrlHelperFactory uhf;
         public PageInfo PageModel { get; set; }
         public string PageAction { get; set; }
+        public string PageClass { get; set; }
+        public string PageClassNormal { get; set; }
+        public string PageClassSelected { get; set; }
 
         public CustomTagHelper(IUrlHelperFactory temp)
         {
@@ -33,8 +36,10 @@ namespace Mission7.Struct
             {
                 TagBuilder tbd = new TagBuilder("a");
                 tbd.Attributes["href"] = uh.Action(PageAction, new { pageNum = i + 1 });
-                tbd.Attributes["class"] = "btn btn-primary";
                 tbd.InnerHtml.Append((i+1).ToString());
+                tbd.AddCssClass(PageClass);
+                tbd.AddCssClass(i + 1 == PageModel.PageNum
+                    ? PageClassSelected : PageClassNormal);
                 builder.InnerHtml.AppendHtml(tbd);
             }
 
