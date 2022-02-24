@@ -22,17 +22,19 @@ namespace Mission7.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string category="", int pageNum = 1)
         {
-            ViewBag.books = _repo.books.OrderBy(p => p.Title).Skip((pageNum - 1) * 10).Take(10);
+            BooksViewModel view = new BooksViewModel();
+            view.books = _repo.books.Where(p => p.Category == category || category == "").OrderBy(p => p.Title).Skip((pageNum - 1) * 10).Take(10);
             var x = new PageInfo()
             {
-                TotalBooks = _repo.books.Count(),
+                TotalBooks = category == "" ? _repo.books.Count() : _repo.books.Where(b => b.Category == category).Count(),
                 BooksPerPage = 10,
                 PageNum = pageNum
             };
-            ViewBag.pageInfo = x;
-            return View();
+            view.pageInfo = x;
+
+            return View(view);
         }
 
         public IActionResult Privacy()

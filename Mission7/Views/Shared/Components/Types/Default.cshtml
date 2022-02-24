@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<string>
+
+<div class="">
+    <a asp-controller="Home" asp-action="Index" asp-route-category="" asp-route-pagenum ="" class="btn btn-outline-secondary">Home</a>
+
+    @foreach (string t in Model)
+    {
+        <a asp-controller="Home" asp-action="Index" asp-route-category="@t" asp-route-pagenum="" class="btn @(ViewBag.category == t ? "btn-primary" : "btn-outline-secondary")">@t</a>
+    }
+</div>

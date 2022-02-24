@@ -26,6 +26,7 @@ namespace Mission7
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
             services.AddControllersWithViews();
 
             services.AddDbContext <BookstoreContext>(options =>
@@ -34,6 +35,8 @@ namespace Mission7
             });
 
             services.AddScoped<IBookstoreRepository, BookstoreRepository>();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,16 +54,21 @@ namespace Mission7
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("typePage2", "Page{pagenum}/{category}", new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("type", "{category}", new { Controller = "Home", action = "Index" });
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: "Paging",
+                    pattern: "Page{pagenum}",
+                    defaults: new { Controller= "Home", action= "Index" });
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
         }
     }
