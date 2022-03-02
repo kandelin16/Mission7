@@ -7,9 +7,12 @@
 
 <table class="table table-bordered table-striped">
     <thead>
-        <th>Title</th>
-        <th>Quantity</th>
-        <th>Cost</th>
+        <tr>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Remove Book</th>
+        </tr>
     </thead>
 
     <tbody>
@@ -18,7 +21,14 @@
             <tr>
                 <td>@i.book.Title</td>
                 <td>@i.Quantity</td>
-                <td>@i.book.Price</td>
+                <td>@i.book.Price.ToString("c")</td>
+                <td class="text-center">
+                    <form method="post" asp-page-handler="Malone">
+                        <input type="hidden" value="@i.book.BookId" name="BookId"/>
+                        <input type="hidden" value="@Model.ReturnUrl" name="returnURL" />
+                        <button type="submit" class="btn btn-sm btn-danger">❌</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

@@ -8,7 +8,7 @@ namespace Mission7.Models
     public class Cart
     {
         public List<CartItem> cartItems { get; set; } = new List<CartItem>();
-        public void AddItem(Books book, int quantity)
+        public virtual void AddItem(Books book, int quantity)
         {
             CartItem tempItem = cartItems.Where(b => b.book.BookId == book.BookId).FirstOrDefault();
 
@@ -24,6 +24,14 @@ namespace Mission7.Models
             {
                 tempItem.Quantity += quantity;
             }
+        }
+        public virtual void RemoveItem(Books book)
+        {
+            cartItems.RemoveAll(x => x.book.BookId == book.BookId);
+        }
+        public virtual void ClearCart()
+        {
+            cartItems.Clear();
         }
         public double CalculateTotal()
         {

@@ -13,26 +13,29 @@ namespace Mission7.Pages
     public class PurchaseModel : PageModel
     {
         private IBookstoreRepository _repo { get; set; }
-        public PurchaseModel(IBookstoreRepository repo)
+        public PurchaseModel(IBookstoreRepository repo, Cart tempcart)
         {
             _repo = repo;
+            cart = tempcart;
         }
         public Cart cart { get; set; }
         public string ReturnUrl { get; set; }
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
         public IActionResult OnPost(int bookID, int quantity, string returnUrl)
         {
             Books b = _repo.books.FirstOrDefault(x => x.BookId == bookID);
-            cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
-            cart.AddItem(b, 1);
 
-            HttpContext.Session.SetJson("cart", cart);
+            cart.AddItem(b, 1);
             
             return RedirectToPage(new { returnUrl = returnUrl});
+        }
+        public IActionResult OnPostMalone(int BookId, string returnURL)
+        {
+            cart.RemoveItem(cart.cartItems.First(b => b.book.BookId == BookId).book);
+            return RedirectToPage(new { returnURL = returnURL });
         }
     }
 }
