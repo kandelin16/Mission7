@@ -1,0 +1,38 @@
+﻿@model Order
+<h2>Checkout Price</h2>
+<p>Please enter your details so we can send you your books!</p>
+<form method="post" asp-action="Checkout" asp-controller="Checkout">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <h4>Ship to:</h4>
+    <div class="form-group">
+        <label asp-for="Name">Name:</label><input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <h4>Address:</h4>
+    <div class="form-group">
+        <label asp-for="AddressLine1">Address Line 1:</label><input type="text" asp-for="AddressLine1" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressLine2">Address Line 2:</label><input type="text" asp-for="AddressLine2" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressLine3">Address Line 3:</label><input type="text" asp-for="AddressLine3" />
+    </div>
+    <div class="form-group">
+        <label asp-for="City">City:</label><input type="text" asp-for="City" />
+    </div>
+    <div class="form-group">
+        <label asp-for="State">State:</label><input type="text" asp-for="State" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Zip">Zip:</label><input type="text" asp-for="Zip" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Country">Country:</label><input type="text" asp-for="Country" />
+    </div>
+    <div class="checkbox">
+        <label asp-for="Anonymous">Checkout as a Guest:</label><input type="checkbox" asp-for="Anonymous" />
+    </div>
+    <div class="float-end">
+        <input type="submit" class="btn-primary btn-primary" value="Submit Order"/>
+    </div>
+</form>

@@ -20,5 +20,6 @@ namespace Mission7.Models
         }
 
         public DbSet<Books> Books { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

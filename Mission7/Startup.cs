@@ -36,6 +36,7 @@ namespace Mission7
             });
 
             services.AddScoped<IBookstoreRepository, BookstoreRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddScoped<Cart>(x => SessionCart.GetCart(x));
