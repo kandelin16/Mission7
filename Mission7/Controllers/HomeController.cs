@@ -16,17 +16,19 @@ namespace Mission7.Controllers
         private  ILogger<HomeController> _logger;
         private IBookstoreRepository _repo { get; }
 
+        //When the home controller is instantiated, sets the logger and repo equal to new instances of those objects.
         public HomeController(ILogger<HomeController> logger, IBookstoreRepository temp)
         {
             _logger = logger;
             _repo = temp;
         }
 
+        //For the index page we take a list of all of the books where the category matches according to the page number.
         public IActionResult Index(string category="", int pageNum = 1)
         {
-            BooksViewModel view = new BooksViewModel();
+            BooksViewModel view = new BooksViewModel(); //The books view model will have the list of all of the books as well as a PageInfo object.
             view.books = _repo.books.Where(p => p.Category == category || category == "").OrderBy(p => p.Title).Skip((pageNum - 1) * 10).Take(10);
-            var x = new PageInfo()
+            var x = new PageInfo() //The page info class contains a count of the boks, books per page, and page number
             {
                 TotalBooks = category == "" ? _repo.books.Count() : _repo.books.Where(b => b.Category == category).Count(),
                 BooksPerPage = 10,

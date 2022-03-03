@@ -4,6 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+//The cart model contains a list of cart items (books and quantity)
+//Methods are defined here for adding items to the cart, removing items from the cart, and clearing the cart completely.
+//This is a virtual class and all the action happens in the SessionCart object.
+
 namespace Mission7.Models
 {
     public class Cart

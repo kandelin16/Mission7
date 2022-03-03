@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
+//Inherits from the cart class. Here we interact with session data to retrieve the cart, add items, remove items, and clear the cart.
+
 namespace Mission7.Models
 {
     public class SessionCart : Cart

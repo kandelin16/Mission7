@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
+//Book model
+
 namespace Mission7.Models
 {
     public partial class Books

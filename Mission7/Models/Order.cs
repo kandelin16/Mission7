@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
+//The order model contains information about the customer as well as a list of cart item objects
+
 namespace Mission7.Models
 {
     public class Order

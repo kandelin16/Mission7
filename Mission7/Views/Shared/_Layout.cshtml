@@ -6,10 +6,14 @@
     <title>@ViewData["Title"] - Mission7</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-    <div class="bg-dark text-white p-2">
+    <div class="bg-dark text-white p-2 navbar navbar-inverse">
         <span class="navbar-brand m-lg-2">Kyle's Bookstore</span>
+        <div class="pull-right">
+            @await Component.InvokeAsync("CartSummary")
+        </div>
     </div>
     <div class="row m-1 p-1">
         <div id="types" class="col-3">

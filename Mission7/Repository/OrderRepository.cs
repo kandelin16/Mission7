@@ -16,8 +16,10 @@ namespace Mission7.Repository
             _context = temp;
         }
 
+        //Queryable of all the orders
         IQueryable<Order> IOrderRepository.orders => _context.Orders.Include(x=> x.Items).ThenInclude(x => x.book);
 
+        //Method for saving a completed order
         public void SaveOrder(Order order)
         {
             _context.AttachRange(order.Items.Select(x => x.book));
