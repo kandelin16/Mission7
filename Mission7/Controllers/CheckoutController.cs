@@ -35,7 +35,7 @@ namespace Mission7.Controllers
                 _repo.SaveOrder(order);
                 _cart.ClearCart();
 
-                return View();
+                return RedirectToPage("/OrderConfirmation");
             }
             else
             {
