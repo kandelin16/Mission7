@@ -9,5 +9,9 @@ namespace Mission7.Repository
     public interface IBookstoreRepository
     {
         IQueryable<Books> books { get;  }
+
+        public void SaveProduct(Books product);
+        public void CreateProduct(Books product);
+        public void DeleteProduct(Books product);
     }
 }

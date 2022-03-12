@@ -1,2 +1,36 @@
 ﻿@page "/admin/orders"
 
+@inherits OwningComponentBase<IOrderRepository>
+
+<OrderTable TableTitle="Pending Orders" orders="PendingOrders" ButtonLabel="Delivered" OrderSelected="DeliverOrder"></OrderTable>
+<OrderTable TableTitle="Delivered Orders" orders="DeliveredOrders" ButtonLabel="Reset" OrderSelected="ResetOrder"></OrderTable>
+
+<btn class="btn btn-info" @onclick="@(x => UpdateData())">Refresh Data</btn>
+
+@code {
+    public IOrderRepository repo => Service;
+
+    public IEnumerable<Order> AllOrders { get; set; }
+    public IEnumerable<Order> PendingOrders { get; set; }
+    public IEnumerable<Order> DeliveredOrders { get; set; }
+
+    public async Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+    public async Task UpdateData()
+    {
+        AllOrders =  await repo.orders.ToListAsync();
+        PendingOrders = await repo.orders.Where(o => o.OrderDelivered == false).ToListAsync();
+        DeliveredOrders = await repo.orders.Where(o => o.OrderDelivered == true).ToListAsync();
+    }
+
+    public void DeliverOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+    private void UpdateOrder(int id, bool delivered)
+    {
+        Order o = repo.orders.FirstOrDefault(o => o.OrderID == id);
+        o.OrderDelivered = delivered;
+        repo.SaveOrder(o);
+    }
+}

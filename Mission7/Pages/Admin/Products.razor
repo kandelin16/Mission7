@@ -1,8 +1,62 @@
 ﻿@page "/admin/products"
 @page "/admin"
-
+@inherits OwningComponentBase<IBookstoreRepository> 
 <h3>Products</h3>
 
-@code {
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td>Product ID</td>
+            <td>Product Name</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ProductData?.Count() > 0)
+        {
+            @foreach (Books book in ProductData)
+            {
+                <tr>
+                    <td>@book.BookId</td>
+                    <td>@book.Title</td>
+                    <td>
+                        <NavLink class="btn btn-info" href="@GetDetailsURL(book.BookId)">Details</NavLink>
+                    </td>
+                    <td>
+                        <NavLink class="btn btn-warning" href="@EditURL(book.BookId)">Edit</NavLink>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@( x => RemoveProduct(book))">Delete Product</button>
+                    </td>
+                </tr>
+            }
+        } 
+        else
+        {
+            <tr><td colspan="2">No Products</td></tr>
+        }
+    </tbody>
+</table>
 
+<NavLink class="btn btn-primary" href="/admin/products/create">Create</NavLink>
+
+@code {
+    public IBookstoreRepository repo => Service;
+    public IEnumerable<Books> ProductData { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+    public async Task UpdateData()
+    {
+        ProductData = await repo.books.ToListAsync();
+    }
+    public string GetDetailsURL(long id) => $"/admin/products/details/{id}";
+    public string EditURL(long id) => $"/admin/products/edit/{id}";
+
+    public async Task RemoveProduct(Books book)
+    {
+        repo.DeleteProduct(book);
+        await UpdateData();
+    }
 }

@@ -15,9 +15,30 @@
                 <tr>
                     <td>@order.Name</td>
                     <td>@order.Zip</td>
+                    <th>Books</th>
+                    <th>Quantity</th>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(x => OrderSelected.InvokeAsync(order.OrderID))">
+                            @ButtonLabel
+                        </button>
+                    </td>
                 </tr>
+                @foreach (CartItem item in order.Items)
+                {
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>@item.book.Title</td>
+                        <td>@item.Quantity</td>
+                    </tr>
+                }
             } 
         } 
+        else
+        {
+            <tr>
+                <td colspan="5">No orders</td>
+            </tr>
+        }
     </tbody>
 </table>
 

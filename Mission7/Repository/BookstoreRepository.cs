@@ -14,5 +14,19 @@ namespace Mission7.Repository
             _context = temp;
         }
         public IQueryable<Books> books => _context.Books;
+        public void SaveProduct(Books product)
+        {
+            _context.SaveChanges();
+        }
+        public void DeleteProduct(Books product)
+        {
+            _context.Remove(product);
+            _context.SaveChanges();
+        }
+        public void CreateProduct(Books product)
+        {
+            _context.Add(product);
+            _context.SaveChanges();
+        }
     }
 }
