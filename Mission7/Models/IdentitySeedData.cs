@@ -12,7 +12,7 @@ namespace Mission7.Models
     public static class IdentitySeedData
     {
         private const string AdminUser = "Admin";
-        private const string Password = "adminPassword!987";
+        private const string Password = "413ExtraYeetPeriod(t)!";
 
         public static async void EnsurePopulated(IApplicationBuilder app)
         {

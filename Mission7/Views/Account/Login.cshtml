@@ -19,7 +19,7 @@
             <span class="navbar-brand m-1-2">Kyle's Bookstore</span>
         </div>
         <div class="m-1 p-1">
-            <div class="text-danger" asp-validation-summary="All"></div>
+            <div class="alert alert-warning alert-dismissible fade show" asp-validation-summary="All"></div>
             <form method="post" asp-controller="Account" asp-action="Login">
                 <div class="form-group">
                     <input asp-for="UserName" class="form-control" placeholder="Username"/>
